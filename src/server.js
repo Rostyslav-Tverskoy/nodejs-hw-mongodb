@@ -26,7 +26,7 @@ app.use(pino({
 
 app.use(router);
 
-app.use("*", notFoundHandler);
+app.use("/", notFoundHandler);
 
 app.use(errorHandler);
 
