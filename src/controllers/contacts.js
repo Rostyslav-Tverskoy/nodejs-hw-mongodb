@@ -19,8 +19,8 @@ export const getAllContactsController = async (req, res) => {
 
 export const getContactsByIdController = async (req, res) => {
     const contactId = req.params.id;
-    const contact = await getContactsById(contactId);
-
+    const userId = req.user._id; 
+    const contact = await getContactsById(contactId, userId);
     if (!contact) {
         throw createHttpError(404, 'Contact not found');
     }
@@ -37,7 +37,10 @@ export const createContactController = async (req, res) => {
     if (!req.body.name || !req.body.phoneNumber || !req.body.contactType) {
         throw createHttpError(400, 'Missing contact name, phone number, or contact type');
     }
-    const newContact = await createContact(req.body);
+
+    const userId = req.user._id; 
+    const newContact = await createContact({ ...req.body, userId });
+
     res.status(201).json({
         status: 201,
         message: 'Successfully created a contact!',
@@ -47,7 +50,8 @@ export const createContactController = async (req, res) => {
 
 export const deleteContactController = async (req, res) => {
     const contactId = req.params.id;
-    const deletedContact = await deleteContact(contactId);
+    const userId = req.user._id; 
+    const deletedContact = await deleteContact(contactId, userId);
 
     if (!deletedContact) {
         throw createHttpError(404, 'Contact not found');
@@ -62,7 +66,8 @@ export const deleteContactController = async (req, res) => {
 
 export const updateContactController = async (req, res) => {
     const contactId = req.params.id;
-    const updatedContact = await updateContact(contactId, req.body);
+    const userId = req.user._id; 
+    const updatedContact = await updateContact(contactId, userId, req.body);
 
     if (!updatedContact) {
         throw createHttpError(404, 'Contact not found');
@@ -77,7 +82,8 @@ export const updateContactController = async (req, res) => {
 
 export const replaceContactController = async (req, res) => {
     const contactId = req.params.id;
-    const replacedContact = await replaceContact(contactId, req.body);
+    const userId = req.user._id; 
+    const replacedContact = await replaceContact(contactId, userId, req.body);
 
     if (!replacedContact) {
         throw createHttpError(404, 'Contact not found');
