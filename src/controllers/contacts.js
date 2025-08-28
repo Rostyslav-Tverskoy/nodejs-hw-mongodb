@@ -7,9 +7,11 @@ import { parseSortParams } from '../utils/parseSortParams.js';
 
 export const getAllContactsController = async (req, res) => {
     console.log("getAllContactsController called");
+    
     const {page, perPage} = parsePaginationParams(req.query);
     const { sortBy, sortOrder } = parseSortParams(req.query);
-    const contacts = await getAllContacts({page, perPage, sortBy, sortOrder});
+    const userId = req.user._id;
+    const contacts = await getAllContacts({page, perPage, sortBy, sortOrder, userId});
     res.json({
         status: 200,
         message: 'Successfully found contacts!',
