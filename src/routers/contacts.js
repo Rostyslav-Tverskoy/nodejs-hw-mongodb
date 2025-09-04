@@ -10,10 +10,14 @@
     import { upload } from "../middlewares/multer.js";
 
 
-    const router = Router();
+const router = Router();
+    
 
 
-    router.use(authenticate);
+
+   router.use(authenticate);
+    
+
 
     router.get('/',  ctrlWrapper(getAllContactsController));
     router.get('/:id', isValidId, ctrlWrapper(getContactsByIdController));
@@ -24,7 +28,9 @@
 
     router.patch('/:id', upload.single("photo"), isValidId, validateBody(updateContactSchema), ctrlWrapper(updateContactController));
 
-    router.put('/:id',upload.single("photo"), isValidId, validateBody(updateContactSchema), ctrlWrapper(replaceContactController));
+router.put('/:id', upload.single("photo"), isValidId, validateBody(updateContactSchema), ctrlWrapper(replaceContactController));
+    
+
 
 
     export default router;
