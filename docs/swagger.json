@@ -223,11 +223,6 @@
                     ],
                     "example": "home"
                   },
-                  "userId": {
-                    "type": "string",
-                    "description": "User ID",
-                    "example": "65e4decdd286b30065d54af9"
-                  },
                   "photo": {
                     "type": "string",
                     "format": "binary",
